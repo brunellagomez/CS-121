@@ -1,0 +1,82 @@
+// Class for modeling a Credit Card
+public class CreditCard {
+    private String cardNumber;
+    private String cvv;
+    private double creditLine; // The total credit limit
+    private double balance;    // The current balance
+
+    // Constructor to initialize the CreditCard object
+    public CreditCard(String cardNumber, String cvv, double creditLine) {
+        this.cardNumber = cardNumber;
+        this.cvv = cvv;
+        this.creditLine = creditLine;
+        this.balance = 0.0; // Initial balance is 0
+    }
+
+    // Get the current balance on the card
+    public double getBalance() {
+        return balance;
+    }
+
+    // Get the available credit (creditLine - balance)
+    public double getAvailableCredit() {
+        return creditLine - balance;
+    }
+
+    // Method to make a purchase, it returns a Transaction
+    public Transaction purchase(String seller, double amount, String cvv) {
+        // Check if CVV matches and there is enough credit available
+        if (this.cvv.equals(cvv) && amount <= getAvailableCredit()) {
+            // Purchase approved, increase the balance
+            balance += amount;
+            return new Transaction(seller, amount, cardNumber, true); // Approved transaction
+        } else {
+            // Purchase declined due to insufficient credit or incorrect CVV
+            return new Transaction(seller, amount, cardNumber, false); // Declined transaction
+        }
+    }
+
+    // Method to refund a transaction, decreases the balance by the transaction amount
+    public void refund(Transaction transaction) {
+        // Only refund if the transaction was approved
+        if (transaction.isApproved()) {
+            balance -= transaction.getAmount();
+        }
+    }
+}
+
+// Class for modeling a Transaction
+public class Transaction {
+    private String seller;
+    private double amount;
+    private String cardNumber;
+    private boolean approved;
+
+    // Constructor to initialize the Transaction object
+    public Transaction(String seller, double amount, String cardNumber, boolean approved) {
+        this.seller = seller;
+        this.amount = amount;
+        this.cardNumber = cardNumber;
+        this.approved = approved;
+    }
+
+    // Get the transaction amount
+    public double getAmount() {
+        return amount;
+    }
+
+    // Check if the transaction was approved
+    public boolean isApproved() {
+        return approved;
+    }
+
+    // Get the seller information
+    public String getSeller() {
+        return seller;
+    }
+
+    // Get the credit card number used for the transaction
+    public String getCardNumber() {
+        return cardNumber;
+    }
+}
