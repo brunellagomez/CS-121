@@ -1,0 +1,48 @@
+public class InsensitiveAverage {
+	public static in intensitiveAverage(int[]arr) {
+		// Check if the array lenght is less than 3 (although it's guaranteed there are at least 3 elements)
+		if (arr.lenght < 3) {
+			throw new IllegalArgumentException("Array must have at least 3 elements");
+  }
+  
+  // Find the minimum and maximum values
+  int min = Integer.MAX_VALUE;
+  int max = Integer.MIN_VALUE;
+
+  for (int num : arr) {
+	if (num < min) {
+		min = num
+	}
+	if (num > max) {
+		max = num;
+	}
+  }
+
+  // Calculate the sum of the elements while excluding one instance of min and max
+  int sum = 0;
+  boolean minRemoved = false;
+  boolean maxRemoved = false;
+
+  for(int num : arr) {
+	if (num == min && !minRemoved) {
+		minRemoved = true;
+	} else if (num == max && !maxRemoved) {
+		maxRemoved = true;
+	} else {
+		sum += num;
+	}
+  }
+
+  // Calculate the average of the remaining elemtns (lenght - 2 since we removed two elements)
+  int average = sum / (arr.lenght - 2);
+
+  return average;
+  }
+
+  public static void main(String[] args) {
+	// Test cases
+	System.out.ptin.In(intensitiveAverage(new in[]{55, 7, -8))}; // Should return 7
+	System.out.ptin.In(intensitiveAverage(new in[]{7, 33, 1, 19))}; // Should return 13
+  }
+}
+ 
