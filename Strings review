@@ -1,0 +1,29 @@
+public class Bookends {
+    public static String bookends(String str) {
+        // If the string is empty, return an empty string
+        if (str == null || str.isEmpty()) {
+            return "";
+        }
+
+        // Iterate over possible substring lengths from the start and the end
+        for (int len = str.length() / 2; len > 0; len--) {
+            String startSub = str.substring(0, len);
+            String endSub = str.substring(str.length() - len);
+            
+            // If the start substring matches the end substring, return it
+            if (startSub.equals(endSub)) {
+                return startSub;
+            }
+        }
+
+        // If no bookend is found, return an empty string
+        return "";
+    }
+
+    public static void main(String[] args) {
+        // Test cases
+        System.out.println(bookends("")); // Should return ""
+        System.out.println(bookends("qq")); // Should return "q"
+        System.out.println(bookends("abcqwertyabc")); // Should return "abc"
+    }
+}
